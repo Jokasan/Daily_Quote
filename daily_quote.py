@@ -6,7 +6,7 @@ import yaml
 import requests
 
 if 'OPENAI_API_KEY' not in st.session_state:
-    st.session_state['OPENAI_API_KEY'] = yaml.safe_load(open('/Users/nilsindreiten/Documents/Python/DS4B_301_P2_DEV_SQL/credentials.yml'))['openai']
+    st.session_state['OPENAI_API_KEY'] = st.secrets['openai']
 if 'previous_quotes' not in st.session_state:
     st.session_state['previous_quotes'] = set()
 
@@ -106,7 +106,7 @@ image_prompt = ChatPromptTemplate.from_messages([
 
 def get_image_url(query):
     try:
-        headers = {'Authorization': yaml.safe_load(open('/Users/nilsindreiten/Documents/Python/Daily_Quote_App/credentials.yaml'))['PEXELS_API_KEY']}
+        headers = {'Authorization': st.secrets['PEXELS_API_KEY']}
         response = requests.get(
             f"https://api.pexels.com/v1/search?query={query}&per_page=1",
             headers=headers
